@@ -1,6 +1,6 @@
 import json
 import time
-from download import *
+from download_pic import *
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver import ChromeOptions
@@ -33,7 +33,7 @@ def download_new(name):
             print(str(error))
             continue
     print('')
-    get_url(string_list, len(string_list), name)
+    get_url_pic(string_list, len(string_list), name)
     print(f'共下载{len(string_list)}张图片')
 
 

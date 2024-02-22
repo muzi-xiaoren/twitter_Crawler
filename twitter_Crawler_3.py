@@ -106,11 +106,12 @@ if __name__ == "__main__":
         driver.add_cookie(cookie)
 
     print("访问推特页面中.....")
-    driver.get("https://twitter.com/Wataaamage/media")  # 此处修改爬取推文
+    driver.get("https://twitter.com/misyune12/media")  # 此处修改爬取推文
     print("准备获取图片和视频中.....")
     time.sleep(1)
     name = driver.find_elements(By.XPATH, '//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div/div/div[3]/div/div/div/div/div[2]/div[1]/div/div[1]/div/div/span/span[1]')
-    folder = name[0].text
+    folder = name[0].text.replace('/', '-')  # 防止斜杠视作创建多级文件夹
+    print(folder)
     # 创建twitter名称文件夹
     if not os.path.exists(folder):
         os.makedirs(folder)

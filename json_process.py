@@ -1,29 +1,24 @@
-def json_value_find(json_data, target_key):
-    def iter_node(node_data):
-        if isinstance(node_data, dict):
-            key_value_iter = (x for x in node_data.items())
-        elif isinstance(node_data, list):
-            key_value_iter = (x for x in enumerate(node_data))
-        else:
-            return
-
-        for key, value in key_value_iter:
-            if key == target_key:
-                yield value
-            if isinstance(value, (dict, list)):
-                yield from iter_node(value)
-
-    return list(iter_node(json_data))
+def json_value_find(json_obj, key):
+    # 递归查找JSON对象中的指定键的值，返回一个列表
+    results = []
+    if isinstance(json_obj, dict):
+        for k, v in json_obj.items():
+            if k == key:
+                results.append(v)
+            results.extend(json_value_find(v, key))
+    elif isinstance(json_obj, list):
+        for item in json_obj:
+            results.extend(json_value_find(item, key))
+    return results
 
 
-
-#  定义一个函数，用于获取每个 "video_info" 中比特率最大的 URL
 def get_max_bitrate_url(variants):
+    # 获取比特率最高的视频URL
     max_bitrate = -1
-    max_bitrate_url = None
+    max_bitrate_url = ""
     for variant in variants:
-        bitrate = variant.get("bitrate", 0)
-        if bitrate > max_bitrate:
-            max_bitrate = bitrate
+        # print(variant)
+        if "bitrate" in variant and variant["bitrate"] > max_bitrate:
+            max_bitrate = variant["bitrate"]
             max_bitrate_url = variant["url"]
     return max_bitrate_url

@@ -6,13 +6,13 @@ from selenium import webdriver
 browser = webdriver.Chrome()
 
 try:
-    browser.get("https://twitter.com/i/flow/login") # https://twitter.com/i/flow/login        # https://www.pixiv.net/
+    browser.get("https://x.com/i/flow/login") # https://x.com/i/flow/login 
     time.sleep(30)  # 30s内登录等待退出
 
 finally:
     dictCookies = browser.get_cookies()
     jsonCookies = json.dumps(dictCookies)
     print(jsonCookies)
-    with open('twitter_Crawler/twitter_cookie.json', 'w') as f:
+    with open('X_cookie.json', 'w') as f:
         f.write(jsonCookies)
     browser.quit()
